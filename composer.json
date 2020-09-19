@@ -2,6 +2,7 @@
     "require": {
         "symfony/http-foundation": "^5.1",
         "symfony/routing": "^5.1",
-        "symfony/var-dumper": "^5.1"
+        "symfony/var-dumper": "^5.1",
+        "symfony/http-kernel": "^5.1"
     }
 }
