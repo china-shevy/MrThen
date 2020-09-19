@@ -1,4 +1,6 @@
 {
+    "name": "phil/mr-then",
+    "description": "The MrThen Framework.",
     "require": {
         "symfony/http-foundation": "^5.1",
         "symfony/routing": "^5.1",
