@@ -92,6 +92,10 @@ class ComposerStaticInitdc9e8653a33d4a44a5d7575052cb0066
         ),
     );
 
+    public static $fallbackDirsPsr4 = array (
+        0 => __DIR__ . '/../..' . '/src',
+    );
+
     public static $classMap = array (
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
@@ -104,6 +108,7 @@ class ComposerStaticInitdc9e8653a33d4a44a5d7575052cb0066
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitdc9e8653a33d4a44a5d7575052cb0066::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitdc9e8653a33d4a44a5d7575052cb0066::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr4 = ComposerStaticInitdc9e8653a33d4a44a5d7575052cb0066::$fallbackDirsPsr4;
             $loader->classMap = ComposerStaticInitdc9e8653a33d4a44a5d7575052cb0066::$classMap;
 
         }, null, ClassLoader::class);
