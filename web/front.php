@@ -2,6 +2,8 @@
 ini_set('display_errors', true);
 error_reporting(E_ALL);
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
