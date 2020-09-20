@@ -16,7 +16,7 @@ class FrameworkTest extends TestCase
     protected $controllerResolver;
     protected $argumentResolver;
 
-    /* public function testNotFoundHanding()
+    public function testNotFoundHanding()
     {
         $framework = $this->getFrameworkForException(new ResourceNotFoundException());
 
@@ -49,7 +49,7 @@ class FrameworkTest extends TestCase
         $response = $framework->handle(new Request());
 
         $this->assertEquals(500, $response->getStatusCode());
-    } */
+    }
 
     public function testControllerResponse()
     {
@@ -76,6 +76,6 @@ class FrameworkTest extends TestCase
         $response = $framework->handle(new Request());
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertContains('Hello Fabien', $response->getContent());
+        $this->assertStringContainsString('Hello Fabien', $response->getContent());
     }
 }

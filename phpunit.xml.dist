@@ -18,3 +18,4 @@
         </whitelist>
     </filter>
 </phpunit>
+Your XML configuration validates against a deprecated schema
