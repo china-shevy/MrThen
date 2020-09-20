@@ -1,7 +1,6 @@
 <?php
-
-error_reporting(-1);
-ini_set('display_errors', 1);
+ini_set('display_errors', true);
+error_reporting(E_ALL);
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
