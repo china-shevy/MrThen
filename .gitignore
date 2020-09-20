@@ -1,1 +1,4 @@
 .phpunit*
+cov
+.DS_Store
+.phpunit.result.cache
