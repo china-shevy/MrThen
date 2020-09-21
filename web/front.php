@@ -4,6 +4,9 @@ error_reporting(E_ALL);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
+use Simplex\ContentLengthListener;
+use Simplex\GoogleListener;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use Symfony\Component\HttpKernel\Controller\ControllerResolver;
@@ -18,7 +21,11 @@ $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
 $controllerResolver = new ControllerResolver();
 $argumentResolver = new ArgumentResolver();
 
-$framework = new Simplex\Framework($matcher, $controllerResolver, $argumentResolver);
+$dispatcher = new EventDispatcher();
+$dispatcher->addListener('response', GoogleListener::getSubscribedEvents());
+$dispatcher->addListener('response', ContentLengthListener::getSubscribedEvents());
+
+$framework = new Simplex\Framework($dispatcher, $matcher, $controllerResolver, $argumentResolver);
 $response = $framework->handle($request);
 
 $response->send();
