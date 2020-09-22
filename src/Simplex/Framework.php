@@ -13,30 +13,22 @@ class Framework extends HttpKernel\HttpKernel
 {
     protected $dispatcher;
     protected $matcher;
-    protected $resolver;
+    protected $controllerResolver;
     protected $argumentResolver;
-
-    /* public function __construct(EventDispatcher $dispatcher, UrlMatcherInterface $matcher, ControllerResolverInterface $resolver, ArgumentResolverInterface $argumentResolver)
-    {
-        $this->dispatcher = $dispatcher;
-        $this->matcher = $matcher;
-        $this->resolver = $resolver;
-        $this->argumentResolver = $argumentResolver;
-    } */
 
     public function __construct($routes)
     {
         $context = new Routing\RequestContext();  
-        $matcher = new Routing\Matcher\UrlMatcher($routes, $context);
+        $this->matcher = new Routing\Matcher\UrlMatcher($routes, $context);
 
-        $controllerResolver = new HttpKernel\Controller\ControllerResolver();
-        $argumentResolver = new HttpKernel\Controller\ArgumentResolver();
+        $this->controllerResolver = new HttpKernel\Controller\ControllerResolver();
+        $this->argumentResolver = new HttpKernel\Controller\ArgumentResolver();
 
         $dispatcher = new EventDispatcher();
-        $dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($matcher, new RequestStack()));
+        $dispatcher->addSubscriber(new HttpKernel\EventListener\RouterListener($this->matcher, new RequestStack()));
         $dispatcher->addSubscriber(new HttpKernel\EventListener\ResponseListener('UTF-8'));
 
-        parent::__construct($dispatcher, $controllerResolver, new RequestStack(), $argumentResolver);
+        parent::__construct($dispatcher, $this->controllerResolver, new RequestStack(), $this->argumentResolver);
     }
 
     public function handle(Request $request, $type = HttpKernel\HttpKernel::MASTER_REQUEST, $catch = true)
@@ -46,7 +38,7 @@ class Framework extends HttpKernel\HttpKernel
         try {
             $request->attributes->add($this->matcher->match($request->getPathInfo()));
 
-            $controller = $this->resolver->getController($request);
+            $controller = $this->controllerResolver->getController($request);
             $arguments = $this->argumentResolver->getArguments($request, $controller);
 
             $response = call_user_func_array($controller, $arguments);
